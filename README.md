@@ -3,8 +3,17 @@
   My first application created as part of learning and practicing. The idea for the app was created due to my own needs. As an owner of several vehicles, I have always had problems with performing service on time. The app is a mini version of an app for taking care of a fleet of vehicles.
 
 <h2 align="left">Screens</h2>
+<img src="https://github.com/RafalC999/VehicleAlert/assets/145366939/5c53151e-f748-4f84-b6c1-dfd5408087aa" />
 
-ABC
+
+<img src="https://github.com/RafalC999/VehicleAlert/assets/145366939/37f47bc5-c4c6-46f1-97a4-2c063a2363de" height="380" /> 
+<img src="https://github.com/RafalC999/VehicleAlert/assets/145366939/6251bb9f-e5ec-492d-8459-6131524b2a10" height="380" />
+
+<div align="center">
+    <img src="https://github.com/RafalC999/VehicleAlert/assets/145366939/5e260223-33e2-4d36-91ef-a9e25f632fa8" height="695" /> 
+</div>
+
+
 
 <h2 align="left">Features:</h2>
 ⚡ The application offers a simple user interface, which makes it easy to use. <br>
