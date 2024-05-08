@@ -33,7 +33,5 @@ To run the app: <br>
 
 1. Clone the app repository. <br>
 2. Open the solution. <br>
-3. Configure connection string. <br>
-4. Update the database. <br>
-5. Run the app. <br>
+3. Run the app. <br>
 
