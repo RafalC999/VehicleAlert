@@ -1,0 +1,272 @@
+﻿<Page x:Class="VehicleAlert.VehiclePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:VehicleAlert"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="550"
+      Title="VehiclePage">
+
+    <Border
+        CornerRadius="1" RenderTransformOrigin="0,0" Background="#FFBAC5C1">
+        <Border.BorderBrush>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="Black"/>
+                <GradientStop Color="#FF1C4769" Offset="1"/>
+                <GradientStop/>
+            </LinearGradientBrush>
+        </Border.BorderBrush>
+        <Grid>
+
+            <StackPanel Grid.ColumnSpan="2" Background="#FF414244">
+                <Border Style="{StaticResource BackgroundBorderStyle}" Width="960">
+                    <TextBlock Style="{StaticResource ModernStyleTitle}" Text="V   e   h   i   c   l   e         A   l   e   r   t" FontSize="50"></TextBlock>
+                </Border>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Border Style="{StaticResource BackgroundBorderGroupStyle}">
+                        <StackPanel >
+                            <Border Style="{StaticResource BackgroundBorderStyle}" MaxWidth="500" Height="auto" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Column="0">
+                                <StackPanel Margin="10,10,10,10">
+                                    <TextBlock Style="{StaticResource ModernStyleTextBlock}" FontSize="24" Text="Wybierz pojazd" 
+                                       HorizontalAlignment="Center" Grid.Column="1"></TextBlock>
+                                    <ComboBox Name="VEH" Grid.Row="2" ItemsSource="{Binding VehicleViews}" SelectedItem="{Binding SelectedVehicle}" Width="230" 
+                                      HorizontalAlignment="Center" Margin="10,20,10,10" Panel.ZIndex="1" Cursor="Hand" Opacity="0.7" 
+                                      BorderBrush="#FF9871C1" SelectionChanged="VEH_SelectionChanged">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal" >
+                                                    <TextBlock Text="{Binding Brand}"></TextBlock>
+                                                    <TextBlock Text="{Binding Model}"></TextBlock>
+                                                    <TextBlock Text=" | Nr. rej.: "></TextBlock>
+                                                    <TextBlock Text="{Binding Plate, Mode=TwoWay}"></TextBlock>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                </StackPanel>
+                            </Border>
+                            <DockPanel Margin="12,0,8,0">
+                                <Button Style="{StaticResource VehicleButtonStyle}" Content="Dodaj pojazd" Grid.Column="3" Cursor="Hand" Click="Button_AddVehicle"/>
+                                <Button Style="{StaticResource VehicleButtonStyle}" Content="Usuń pojazd" Cursor="Hand" Click="Button_DeleteVehicle" HorizontalAlignment="Right"/>
+                            </DockPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource BackgroundBorderGroupStyle}" Grid.Column="1">
+                        <StackPanel >
+                            <Border Style="{StaticResource BackgroundBorderStyle}" MinWidth="250"  HorizontalAlignment="Left" >
+                                <StackPanel Margin="10,10,10,10">
+                                    <TextBlock Style="{StaticResource ModernStyleTextBlock}" Text="Numer VIN" FontSize="16"></TextBlock>
+                                    <TextBlock DataContext="{Binding SelectedVehicle}" Text="{Binding VinNumber}" FontStyle="Italic" FontSize="16" Foreground="#FF0D6F29" ></TextBlock>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Style="{StaticResource BackgroundBorderStyle}" MinWidth="250"  HorizontalAlignment="Left">
+                                <StackPanel Margin="10,10,10,10">
+                                    <TextBlock Style="{StaticResource ModernStyleTextBlock}" Text="Aktualny przebieg" FontSize="16" />
+                                    <TextBlock Text="{Binding ActualCourse}" FontStyle="Italic" Margin="0,0,0,0" FontSize="16" Foreground="#FF0D6F29"/>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource BackgroundBorderGroupStyle}" Grid.Column="2">
+                        <StackPanel Grid.Column="2">
+                            <Border Style="{StaticResource BackgroundBorderStyle}" MaxWidth="500" Height="auto" VerticalAlignment="Top" HorizontalAlignment="Left" >
+                                <StackPanel Margin="10,10,10,10">
+                                    <TextBlock Style="{StaticResource ModernStyleTextBlock}" Text="Zaktualizuj przebieg" FontSize="24" HorizontalAlignment="Center"></TextBlock>
+                                    <TextBox Style="{StaticResource ModernStyleTextbox}" Text="{Binding UpdatedCourse}" Grid.Column="1" Margin="10,20,10,10"  Width="200" />
+                                </StackPanel>
+                            </Border>
+                            <Button Style="{StaticResource VehicleButtonStyle}" Grid.Column="1" Content="Aktualizuj" Click="Button_UpdateCourse" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource BackgroundBorderGroupStyle}" Grid.Column="3">
+                        <StackPanel Grid.Column="3">
+                            <Button Style="{StaticResource ActionButtonStyle}" Content="Dodaj akcje" Click="Button_AddAction" />
+                            <Button Style="{StaticResource ActionButtonStyle}" Content="Edytuj akcję" Click="Button_EditAction"/>
+                            <Button Style="{StaticResource ActionButtonStyle}" Content="Usuń akcję" Command="{Binding DeleteSelectedTaskCommand}" Click="Button_DeleteAction"/>
+                            <Button Style="{StaticResource ActionButtonStyle}" Content="Generuj PDF" Click="Button_CreatePDF"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+                <!--<Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Style="{StaticResource ModernStyleTextBlock}" Text="Wybrany pojazd" FontSize="16" Margin="10,0,0,0" ></TextBlock>
+                    <StackPanel Grid.Column="1">
+                        <TextBlock Style="{StaticResource ModernStyleTextBlock}" Text="Zaktualizuj przebieg" FontSize="16" Margin="5,0,10,0" HorizontalAlignment="Center" ></TextBlock>
+                    </StackPanel>
+                </Grid>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock DataContext="{Binding SelectedVehicle}" Text="{Binding Brand}" FontStyle="Italic" Margin="10,0,0,0" FontSize="16" Foreground="#FF0D6F29" ></TextBlock>
+                    <TextBox Style="{StaticResource ModernStyleTextbox}" Text="{Binding UpdatedCourse}" Grid.Column="1" Margin="10,5,10,10"  Width="140" />
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Style="{StaticResource ModernStyleTextBlock}" Text="Aktualny przebieg" FontSize="16" Margin="10,0,0,0" />
+                    <Button Style="{StaticResource ModernStyle}" Grid.Column="1" Content="Aktualizuj"  Width="90" Cursor="Hand" Height="21" Margin="60,0,60,0" VerticalAlignment="Top" Click="Button_UpdateCourse" />
+                </Grid>
+                <TextBlock Text="{Binding ActualCourse}" FontStyle="Italic" Margin="10,0,0,0" FontSize="16" Foreground="#FF0D6F29"/>-->
+
+                <DataGrid Name="DATA"
+                            ItemsSource="{Binding PageAlertActions,Mode=TwoWay}"
+                            CanUserAddRows="False" 
+                            CanUserDeleteRows="False"
+                            AutoGenerateColumns="False" Margin="5,8,5,0"
+                            Height="470" 
+                            Loaded="DataGrid_OnLoaded"
+                            ColumnHeaderHeight="30" Background="#FF212121"
+                            
+                            >
+
+
+                    <DataGrid.Resources>
+                        <Style TargetType="DataGridColumnHeader" x:Key="StartStyle">
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="LightGray"/>
+                                        <GradientStop Color="LightGray" Offset="1"/>
+                                        <GradientStop Color="#FF212121" Offset="0.411"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Opacity" Value="3 "/>
+                            <Setter Property="BorderThickness" Value="1"/>
+                            <Setter Property="BorderBrush" Value="AntiqueWhite"/>
+                            <Setter Property="Foreground" Value="Gold"/>
+                            <Setter Property="FontSize" Value="12"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+
+                        <Style TargetType="DataGridColumnHeader" x:Key="AscStyle">
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="LightGray" />
+                                        <GradientStop Color="#FF212121" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Opacity" Value="3 "/>
+                            <Setter Property="BorderThickness" Value="1"/>
+                            <Setter Property="BorderBrush" Value="AntiqueWhite"/>
+                            <Setter Property="Foreground" Value="LimeGreen"/>
+                            <Setter Property="FontSize" Value="12"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+
+
+                        <Style TargetType="DataGridColumnHeader" x:Key="DescStyle">
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="LightGray" Offset="1"/>
+                                        <GradientStop Color="#FF212121" />
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Opacity" Value="3 "/>
+                            <Setter Property="BorderThickness" Value="1"/>
+                            <Setter Property="BorderBrush" Value="AntiqueWhite"/>
+                            <Setter Property="Foreground" Value="LimeGreen"/>
+                            <Setter Property="FontSize" Value="12"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+
+                        </Style>
+                        <local:ProgressForegroundConverter x:Key="ProgressForegroundConverter"/>
+                    </DataGrid.Resources>
+
+                    <DataGrid.Columns>
+
+                        <DataGridTextColumn x:Name="description" Width="*" Header="Opis" CanUserSort="False" Binding="{Binding Path=Description}" HeaderStyle="{StaticResource StartStyle}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style>
+                                    <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn x:Name="interval" Width="100" Header="Interwał" CanUserSort="False" Binding="{Binding Path=Interval}" HeaderStyle="{StaticResource StartStyle}"/>
+
+                        <DataGridTextColumn x:Name="lastService" Width="100" Header="Ostatni serwis" CanUserSort="False" Binding="{Binding Path=LastActionCourse}" HeaderStyle="{StaticResource StartStyle}"/>
+
+                        <DataGridTextColumn x:Name="kmToService"  Width="100" Header="Pozostało" CanUserSort="False" Binding="{Binding Path=KmToServis}" HeaderStyle="{StaticResource StartStyle}"/>
+
+                        <DataGridTemplateColumn x:Name="progress" Header="Zużycie" CanUserSort="False" Width="100" HeaderStyle="{StaticResource StartStyle}" >
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <ProgressBar VerticalAlignment="Center" Minimum ="0" Maximum="100" Width="100" Height="20"  
+                                                     Value="{Binding Path=progress}"
+                                                     Foreground="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Value, Converter={StaticResource ProgressForegroundConverter}}" />
+
+                                        <TextBlock Text="{Binding progress, StringFormat={}{0:0}%}" HorizontalAlignment="Center" VerticalAlignment="Center"
+/>
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridCheckBoxColumn x:Name="selected" Width="60" Header="Zaznacz" Binding="{Binding Path=IsSelected}" HeaderStyle="{StaticResource StartStyle}"/>
+
+                    </DataGrid.Columns>
+                </DataGrid>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+
+
+
+                    <Button  Style="{StaticResource PageButtonStyle}" Command="{Binding FirstPageCommand}" Content="&lt;&lt;" Click="Button_FirstPage" />
+                    <Button  Style="{StaticResource PageButtonStyle}" Command="{Binding PreviousPageCommand}" Content="&lt;" Grid.Column="1" Click="Button_PreviousPage" />
+                    <DockPanel Margin="6,12,7,0">
+                        <TextBlock Text="{Binding CurrentPage}"/>
+                        <TextBlock Text="  z  "/>
+                        <TextBlock Text="{Binding Pages}"/>
+                    </DockPanel>
+                    <Button  Style="{StaticResource PageButtonStyle}" Command="{Binding NextPageCommand}" Content=">" Grid.Column="2" Click="Button_NextPage"/>
+                    <Button  Style="{StaticResource PageButtonStyle}" Command="{Binding LastPageCommand}" Content=">>" Grid.Column="3" Click="Button_LastPage" />
+
+
+                </StackPanel>
+
+                <!--<Grid Margin="0,10,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Style="{StaticResource ModernStyle}" Content="Usuń pojazd" Cursor="Hand" Click="Button_DeleteVehicle"/>
+                    <Button Style="{StaticResource ModernStyle}" Content="Usuń akcję" Command="{Binding DeleteSelectedTaskCommand}"  Grid.Column="1" Cursor="Hand" Click="Button_DeleteAction"/>
+                    <Button Style="{StaticResource ModernStyle}" Content="Edytuj akcję" Grid.Column="2" Cursor="Hand" Click="Button_EditAction" Height="22" Margin="5,1,5,0" VerticalAlignment="Top"/>
+                    <Button Style="{StaticResource ModernStyle}" Content="Dodaj pojazd" Grid.Column="3" Cursor="Hand" Click="Button_AddVehicle"/>
+                    <Button Style="{StaticResource ModernStyle}" Content="Dodaj akcje" Grid.Column="4" Cursor="Hand" Click="Button_AddAction" Height="22" VerticalAlignment="Top" />
+                </Grid>
+                <Button Style="{StaticResource ModernStyle}" Content="Generuj pdf" Grid.Column="3" Cursor="Hand" Click="Button_CreatePDF"/>-->
+            </StackPanel>
+        </Grid>
+    </Border>
+</Page>

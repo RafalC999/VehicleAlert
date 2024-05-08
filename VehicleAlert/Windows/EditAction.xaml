@@ -1,0 +1,38 @@
+﻿<Window x:Class="VehicleAlert.Windows.EditAction"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VehicleAlert.Windows"
+        mc:Ignorable="d"
+        ResizeMode="NoResize"
+        Title="Akcja" Height="320" Width="250">
+    <Grid>
+
+        <StackPanel Background="#FF414244" >
+            <TextBlock Style="{StaticResource ModernStyleTitle}" FontSize="30" Text="Edytuj alert"></TextBlock>
+            
+            <TextBlock Style="{StaticResource TextBlockName}" Text="Opis"/>
+            <TextBox Style="{StaticResource ModernStyleTextbox}" Grid.Column="1" Text="{Binding NewDescription}" />
+            <TextBlock Style="{StaticResource TextBlockError}" Text="{Binding ErrorDescription}"></TextBlock>
+            
+            <TextBlock Style="{StaticResource TextBlockName}" Text="Ostatni serwis (przebieg)" />
+            <TextBox Style="{StaticResource ModernStyleTextbox}" Text="{Binding NewLastActionCourse}" />
+            <TextBlock Style="{StaticResource TextBlockError}" Text="{Binding ErrorLastActionCourse}"></TextBlock>
+            
+            <TextBlock Style="{StaticResource TextBlockName}" Text="Interwał" />
+            <TextBox Style="{StaticResource ModernStyleTextbox}" Text="{Binding NewInterval}" />
+            <TextBlock Style="{StaticResource TextBlockError}" Text="{Binding ErrorInterval}"></TextBlock>
+            
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button  Style="{StaticResource ActionButtonStyle}" Command ="{Binding SaveEditedActionCommand}" Content="Zapisz" Width="100" Click="Button_SaveAction"/>
+                <Button  Style="{StaticResource ActionButtonStyle}" Command ="{Binding SaveEditedActionCommand}" Content="Anuluj"  Width="100" Grid.Column="1" Click="Button_Click_Cancel"/>
+            </Grid>
+    </StackPanel>
+       
+    </Grid>
+</Window>
